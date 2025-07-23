@@ -2,5 +2,3 @@
 /dist
 /build
 .env
-package.json
-package-lock.json
