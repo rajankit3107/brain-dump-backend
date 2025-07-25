@@ -1,0 +1,1 @@
+{"root":["./src/config.ts","./src/index.ts","./src/controllers/controllers.ts","./src/middlewares/middleware.ts","./src/models/model.ts","./src/routes/routes.ts","./src/validators/validators.ts"],"version":"5.8.3"}
