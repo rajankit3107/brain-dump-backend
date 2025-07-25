@@ -1,13 +1,13 @@
 import express from "express";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import connectDB from "./config";
 
 const app = express();
-dotenv.config()
+dotenv.config();
 
-app.use(express.json())
+app.use(express.json());
 
-connectDB()
+connectDB();
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
