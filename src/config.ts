@@ -8,7 +8,7 @@ async function connectDB() {
   if (!mongoUrl) {
     throw new Error("MONGO_URL environment variable is not set");
   }
-  mongoose
+  await mongoose
     .connect(mongoUrl)
     .then(() => console.log(`connected to database ✅`))
     .catch((err) => console.log(`Error connecting to the database ❌`, err));
