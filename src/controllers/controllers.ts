@@ -26,3 +26,18 @@ export const Signup = async (req: Request, res: Response) => {
     }
     
 };
+
+export const Singin = async(req : Request, res : Response) => {
+    try {
+        const { username } = req.body;
+    
+        const validation = userSchema.safeParse(req.body)
+        if(!validation.success) res.status(411).json({message : `invalid input credentials`})
+    
+        const user = await User.findOne({username});
+    
+        if(user) res.status(200).json({message : `signed in successfully`})
+    } catch (error) {
+        console.log(`Error while signingIn`, error)
+    }
+}
