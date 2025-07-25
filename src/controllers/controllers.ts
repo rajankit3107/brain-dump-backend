@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { userSchema } from "../validators/validators";
-import { User } from "../models/model";
+import { userSchema } from "../validators/validators.js";
+import { User } from "../models/model.js";
 
 export const Signup = async (req: Request, res: Response) => {
     try {
