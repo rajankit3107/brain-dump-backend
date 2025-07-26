@@ -99,3 +99,23 @@ export const getContent = async (req:Request, res: Response) => {
         console.log(`Error while fetching content`, error)
     }
 }
+
+export const deleteContent = async(req : Request, res: Response) => {
+    const { contentId } = req.body;
+
+    try {
+        await Content.deleteMany({
+            contentId,
+            //@ts-expect-error req.userId is set by custom middleware
+            userId : req.userId
+        })
+    
+        res.json({message : `Deleted`})
+    } catch (error) {
+        console.log(`Error while deleting content`, error)
+    }
+}
+
+export const shareBrain = async(req : Request, res : Response) => {
+    const { share } = req.body
+}
