@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import jwt from 'jsonwebtoken'
 import { userSchema } from "../validators/validators.js";
-import { Content, User } from "../models/model.js";
+import { Content, Link, User } from "../models/model.js";
 import dotenv from 'dotenv'
+import { randomString } from "../utils/random-string-generator.js";
 
 dotenv.config();
 
@@ -117,5 +118,27 @@ export const deleteContent = async(req : Request, res: Response) => {
 }
 
 export const shareBrain = async(req : Request, res : Response) => {
-    const { share } = req.body
+    const { share } = req.body;
+
+    try {
+        if(share) {
+            const createdlink = await Link.create({
+                //@ts-expect-error req.userId is set by custom middleware
+                userId : req.userId,
+                hash : randomString(50)
+            })
+            res.json({
+                createdlink
+            })
+        }else{
+           await Link.deleteOne({
+                //@ts-expect-error req.userId is set by custom middleware
+                userId : req.userId
+            })
+        }
+    
+        // res.status(200).json({message : `shareable link created`})
+    } catch (error) {
+        console.log(`Error while creating the Link`, error)
+    }
 }
