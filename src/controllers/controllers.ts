@@ -142,3 +142,37 @@ export const shareBrain = async(req : Request, res : Response) => {
         console.log(`Error while creating the Link`, error)
     }
 }
+
+export const shareLink = async(req : Request, res: Response) => {
+    const hash = req.params.shareLink;
+    console.log(hash)
+
+    try {
+        const link = await Link.findOne({
+            hash
+        })
+        console.log(link)
+    
+        if(!link) res.status(400).json({message : `sorry incorrect input recieved`})
+    
+        const content = await Content.find({
+            userId : link?.userId
+        })
+        console.log(content)
+    
+        const user = await User.findOne({
+            _id : link?.userId
+        })
+
+        console.log(user)
+    
+        if(!user) return res.status(400).json({message : `user not found`})
+    
+        return res.status(200).json({
+            username: user.username,
+            content : content
+        })
+    } catch (error) {
+       console.log(error) 
+    }
+}   
