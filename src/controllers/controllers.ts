@@ -110,7 +110,6 @@ export const deleteContent = async(req : Request, res: Response) => {
             //@ts-expect-error req.userId is set by custom middleware
             userId : req.userId
         })
-    
         res.json({message : `Deleted`})
     } catch (error) {
         console.log(`Error while deleting content`, error)
@@ -122,6 +121,18 @@ export const shareBrain = async(req : Request, res : Response) => {
 
     try {
         if(share) {
+
+            const existingLink = await Link.findOne({
+                //@ts-expect-error req.userId is set by custom middleware
+                userId : req.userId
+            })
+
+            if(existingLink) {
+                return res.json({
+                    hash : existingLink.hash
+                })
+            }
+
             const createdlink = await Link.create({
                 //@ts-expect-error req.userId is set by custom middleware
                 userId : req.userId,
@@ -135,6 +146,8 @@ export const shareBrain = async(req : Request, res : Response) => {
                 //@ts-expect-error req.userId is set by custom middleware
                 userId : req.userId
             })
+
+            res.status(400).json({message : `Removed Link`})
         }
     
         // res.status(200).json({message : `shareable link created`})
@@ -151,20 +164,20 @@ export const shareLink = async(req : Request, res: Response) => {
         const link = await Link.findOne({
             hash
         })
-        console.log(link)
+        // console.log(link)
     
         if(!link) res.status(400).json({message : `sorry incorrect input recieved`})
     
         const content = await Content.find({
             userId : link?.userId
         })
-        console.log(content)
+        // console.log(content)
     
         const user = await User.findOne({
             _id : link?.userId
         })
 
-        console.log(user)
+        // console.log(user)
     
         if(!user) return res.status(400).json({message : `user not found`})
     
