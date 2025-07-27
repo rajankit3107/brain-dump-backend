@@ -324,19 +324,3 @@ brain-dump-backend/
 
 This project is licensed under the ISC License.
 
-## 🐛 Known Issues
-
-- The `deleteContent` endpoint is implemented but not exposed in routes
-- Error handling could be improved with more specific error messages
-- Password hashing should be implemented for better security
-
-## 🔮 Future Enhancements
-
-- Add password hashing with bcrypt
-- Implement content tags functionality
-- Add rate limiting
-- Add comprehensive error handling
-- Add API documentation with Swagger
-- Add unit and integration tests
-- Implement refresh tokens
-- Add content search functionality
