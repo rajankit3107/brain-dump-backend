@@ -64,17 +64,21 @@ export const Singin = async(req : Request, res : Response) => {
 }
 
 export const CreateContent = async (req:Request, res: Response) => {
-    const { title, link } =  req.body
-    // console.log(req.body)
+    const { title, link, type } =  req.body
+    console.log("Received request body:", req.body)
+    console.log("Extracted fields:", { title, link, type })
 
     try {
-        await Content.create({
+        const createdContent = await Content.create({
             title,
+            type,
             link,
             tags : [],
             //@ts-expect-error req.userId is set by custom middleware
             userId : req.userId 
         })  
+        
+        console.log("Created content:", createdContent)
     
         return res.json({
             message : `Content Added`
