@@ -109,14 +109,18 @@ export const deleteContent = async(req : Request, res: Response) => {
     const { contentId } = req.body;
 
     try {
-        await Content.deleteMany({
-            contentId,
+        const result = await Content.deleteOne({
+            _id : contentId,
             //@ts-expect-error req.userId is set by custom middleware
             userId : req.userId
-        })
+        });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "Content not found or not authorized" });
+        }
         res.json({message : `Deleted`})
     } catch (error) {
         console.log(`Error while deleting content`, error)
+        res.status(500).json({ message: "Error while deleting content", error: error instanceof Error ? error.message : error });
     }
 }
 
