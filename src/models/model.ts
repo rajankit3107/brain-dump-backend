@@ -27,6 +27,7 @@ const contentModel = new mongoose.Schema({
         type : String,
         required : true,
     },
+    type : String,
     tags : [{
         type: mongoose.Types.ObjectId,
         ref : 'Tag'
