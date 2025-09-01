@@ -22,12 +22,6 @@ A Node.js/Express backend API for a brain dump application that allows users to 
 - **Environment**: dotenv
 - **Development**: Nodemon, ESLint, Prettier
 
-## 📋 Prerequisites
-
-- Node.js (v16 or higher)
-- MongoDB database
-- npm or yarn package manager
-
 ## 🚀 Installation
 
 1. **Clone the repository**
@@ -323,4 +317,3 @@ brain-dump-backend/
 ## 📝 License
 
 This project is licensed under the ISC License.
-
